@@ -1,28 +1,37 @@
 class Solution {
 public:
-    int splitArray(vector<int>& nums, int k) {
-        int l = 0, r = 0, n = nums.size();
-        for(int i = 0; i < n; ++i) {
-            l = max(l,nums[i]), r += nums[i];
-        }
-        
-        int mid = 0, ans = 0;
-        while(l <= r){
-            mid = (l + r) / 2;
-            int count = 0, tempsum = 0;
-            for(int i = 0; i < n; ++i){
-                if(tempsum + nums[i] <= mid) {
-                    tempsum += nums[i];
-                }
-                else{
-                    count++, tempsum = nums[i];
-                }
-            }
-            count++; 
+    bool blackBox(vector<int>& nums, int k, int limit){
+        int n = nums.size();
+        int count = 1, sum = 0;
+        for(int i = 0; i < n; i++){
+            if(nums[i] > limit) return false;
             
-            if(count <= k) r = mid - 1, ans = mid;
-            else l = mid + 1;
-        }  
+            if(sum + nums[i] > limit){
+                count++;
+                sum = nums[i];
+            }
+            else {
+                sum += nums[i];
+            }
+        }
+        return count <= k;
+    }
+    
+    int splitArray(vector<int>& nums, int k) {
+        int low = *max_element(nums.begin(),nums.end());
+        int high = 0, n = nums.size(), ans = low;
+        for(int i = 0; i < n; i++) high += nums[i];
+        
+        while(low <= high){
+            int mid = low + (high - low) / 2;
+            if(blackBox(nums, k, mid) == true){
+                ans = mid;
+                high = mid - 1;
+            }
+            else{
+                low = mid + 1;
+            }
+        }
         return ans;
     }
 };
