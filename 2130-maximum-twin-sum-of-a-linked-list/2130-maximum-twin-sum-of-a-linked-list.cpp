@@ -10,6 +10,7 @@
  */
 class Solution {
 public:
+//     Function to reverse the string...
     ListNode* reverse(ListNode* head){
         ListNode* prev = NULL;
         ListNode* curr = head;
@@ -23,27 +24,22 @@ public:
         return prev;
     }
     int pairSum(ListNode* head) {
-        int n = 0;
-        ListNode* temp = head;
-        while(temp){
-            n++;
-            temp = temp->next;
+        ListNode* fast = head, *slow = head;
+        
+//         Using fast/slow method to find mid of the L.List...
+        
+        while(fast){
+            fast = fast->next->next;
+            slow = slow->next;
         }
-        temp = head;
-
-        for(int i = 1; i < n/2; i++){
-            temp = temp->next;
-        }
-        ListNode* mid = temp->next;
-        temp->next = NULL;
-        ListNode* rmid = reverse(mid);
-
-
+//         Calling reverse function 
+        ListNode* mid = reverse(slow);
+        
         int ans = INT_MIN;
-        while(rmid){
-            ans = max(ans,head->val + rmid->val);
+        while(mid){
+            ans = max(ans,head->val + mid->val);
             head = head->next;
-            rmid = rmid->next;
+            mid = mid->next;
         }
         return ans; 
     }
