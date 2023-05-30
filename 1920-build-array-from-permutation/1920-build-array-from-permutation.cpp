@@ -7,8 +7,7 @@ public:
         if(n == 1) return nums;
         
         for(int i = 0; i < n ; i++){
-            int k = nums[i];
-            ans.push_back(nums[k]);
+            ans.push_back(nums[nums[i]]);
         }
         return ans;
     }
