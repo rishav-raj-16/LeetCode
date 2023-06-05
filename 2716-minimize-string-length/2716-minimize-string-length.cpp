@@ -1,10 +1,15 @@
 class Solution {
 public:
     int minimizedStringLength(string s) {
-        set<char> st;
+        vector<int> st(26,0);
+        int ans = 0;
         for(auto it: s){
-            st.insert(it);
+            st[it - 'a'] = 1;
         }
-        return st.size();
+        for(auto it : st){
+            if(it == 1)
+                ans++;
+        }
+        return ans;
     }
 };
