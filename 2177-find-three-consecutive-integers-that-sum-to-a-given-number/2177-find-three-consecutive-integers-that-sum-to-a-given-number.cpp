@@ -1,10 +1,19 @@
 class Solution {
 public:
     vector<long long> sumOfThree(long long num) {
-        if(num%3!=0)
-            return {};
+        long long low = 0, high = num;
         
-        long long mid=num/3;
-        return {mid-1,mid,mid+1};
+        while(low <= high){
+            long long mid  = low + (high - low) / 2;
+            long long temp = (mid-1) + mid + (mid+1);
+            if(temp == num){
+                return {mid-1, mid, mid+1};
+            }
+            if(temp > num)
+                high = mid-1;
+            else
+                low = mid+1;
+        }
+        return {};
     }
 };
