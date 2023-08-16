@@ -11,12 +11,8 @@ public:
         for(int i = 0; i < k; i++){
             long long j = store.top();
             store.pop();
-            
-            cout<<j<<" ";
-            
             ans += j;
             j = ceil(j/3.0);
-            
             store.push(j);
         }
         return ans;
