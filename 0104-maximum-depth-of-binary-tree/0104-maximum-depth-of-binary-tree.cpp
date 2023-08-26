@@ -16,9 +16,24 @@ public:
             return 0;
         }
         
-        int lh = maxDepth(root->left);
-        int rh = maxDepth(root->right);
-        
-        return 1 + max(lh,rh);
+        int count = 0;
+        queue<TreeNode*> store;
+        store.push(root);
+        while(!store.empty()) {
+            int sz = store.size();
+            count++;
+            for(int i = 0; i < sz; i++) {
+                auto cur = store.front();
+                store.pop();
+                
+                if(cur->left != NULL) {
+                    store.push(cur->left);
+                }
+                if(cur->right != NULL) {
+                    store.push(cur->right);
+                }
+            }
+        }
+        return count;
     }
 };
