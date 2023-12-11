@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int findSpecialInteger(vector<int>& arr) {
+        int n = arr.size(), t = n/4;
+        for(int i = 0; i < n; i++)
+            if(arr[i] == arr[i+t])
+                return arr[i];
+        return -1;
+    }
+};
