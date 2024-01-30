@@ -21,7 +21,7 @@ private:
     vector<vector<int>> res;
     vector<int> curr;
     
-    void dfs (TreeNode* root, int t, long long sum, vector<int> curr) {
+    void dfs (TreeNode* root, int t, long long& sum, vector<int>& curr) {
         if(!root) {
             return;
         }
@@ -36,5 +36,8 @@ private:
         
         dfs(root->left,t,sum,curr);
         dfs(root->right,t,sum,curr);
+        
+        sum -= root->val;
+        curr.pop_back();
     }
 };
