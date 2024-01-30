@@ -20,7 +20,7 @@ private:
     long long sum = 0;
     bool res = false;
     
-    void dfs (TreeNode* root, int t, long long sum) {
+    void dfs (TreeNode* root, int t, long long& sum) {
         if(!root) {
             return;
         }
@@ -34,5 +34,7 @@ private:
         
         dfs(root->left,t,sum);
         dfs(root->right,t,sum);
+        
+        sum -= root->val;
     }
 };
