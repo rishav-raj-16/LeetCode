@@ -1,5 +1,12 @@
 class Solution {
 public:
+    
+    Solution(){
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+        cout.tie(0);
+    }
+    
     int minSetSize(vector<int>& arr) {
         int n = arr.size(), m = n, ans = 0, i = 0;
         vector<int> count;
