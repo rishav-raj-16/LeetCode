@@ -14,8 +14,11 @@ public:
         auto p = reverseList(head);
         auto q = p;
         while(q && q->next) {
-            if(q->val > q->next->val)
+            if(q->val > q->next->val){
+                auto temp = q->next;
                 q->next = q->next->next;
+                delete temp;
+            }
             else
                 q = q->next;
         }
