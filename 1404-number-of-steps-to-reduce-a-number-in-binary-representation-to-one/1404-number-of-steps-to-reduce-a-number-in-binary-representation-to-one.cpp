@@ -1,27 +1,17 @@
 class Solution {
 public:
     int numSteps(string s) {
+        int n = s.size(), carry = 0;
         int ans = 0;
         
-        while(s.size() > 1) {
-            int  n = s.size();
-            if(s[n-1] == '0') {
-                s.pop_back();
+        for(int i = n-1; i > 0; i--) {
+            if(((s[i] - '0') + carry) % 2 == 1) {
+                ans += 2;
+                carry = 1;
             }else{
-                int i = n-1;
-                
-                while(i >= 0 && s[i] != '0') {
-                    s[i--] = '0';
-                }
-                
-                if(i < 0){
-                    s = '1' + s;
-                }else{
-                    s[i] = '1';
-                }
+                ans++;
             }
-            ans++;
         }
-        return ans;
+        return ans+carry;
     }
 };
