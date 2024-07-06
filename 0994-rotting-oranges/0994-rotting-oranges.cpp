@@ -4,6 +4,7 @@ public:
         int n = grid.size();
         int m = grid[0].size();
         int tm = 0;
+        int cntFresh = 0, cnt = 0;
         int vis[n][m];
         queue<pair<pair<int,int>,int>> q;
         
@@ -15,6 +16,9 @@ public:
                 }
                 else
                     vis[i][j] = 0;
+                
+                if(grid[i][j] == 1)
+                    cntFresh++;
             }
         }
         
@@ -27,7 +31,6 @@ public:
             int t = q.front().second;
             tm = max(tm,t);
             q.pop();
-            // cout<<row<<" "<<col<<" "<<t<<" "<<"*";
             
             for(int i = 0; i < 4; i++){
                 int nrow = row + drow[i];
@@ -37,16 +40,10 @@ public:
                   && !vis[nrow][ncol] && grid[nrow][ncol] == 1){
                     vis[nrow][ncol] = 2;
                     q.push({{nrow,ncol},t+1});
+                    cnt++;
                 }
             }
         }
-        
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                if(grid[i][j] == 1 && !vis[i][j])
-                    return -1;
-            }
-        }
-        return tm;
+        return ((cnt != cntFresh)? -1 : tm);
     }
 };
