@@ -1,37 +1,41 @@
 class Solution {
 public:
-    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
-        int n = graph.size();
-        vector<int> vis(n,0);
-        vector<int> path(n,0);
+    // Topological Sort Solution
+    vector<int> eventualSafeNodes(vector<vector<int>>& adj) {
+        int V = adj.size();
+        vector<vector<int>> nadj(V);
+        
+        for(int i = 0; i < V; i++) {
+            for(auto it:adj[i])
+                nadj[it].push_back(i);
+        }
+        
+        vector<int> indegree(V,0);
+        
+        for(int i = 0; i < V; i++) {
+            for(auto it:nadj[i])
+                indegree[it]++;
+        }
+        
+        queue<int> q;
         vector<int> ans;
         
-        for(int i = 0 ; i < n; i++) {
-            if(!vis[i])
-                dfs(i,graph,vis,path);
+        for(int i = 0 ; i < V; i++) {
+            if(!indegree[i])
+                q.push(i);
         }
         
-        for(int i = 0; i < n; i++) {
-            if(!path[i])
-                ans.push_back(i);
+        while(!q.empty()) {
+            int node = q.front();
+            ans.push_back(node);
+            q.pop();
+            
+            for(auto it:nadj[node]){
+                indegree[it]--;
+                if(!indegree[it]) q.push(it);
+            }
         }
+        sort(ans.begin(),ans.end());
         return ans;
-    }
-    
-private:
-    bool dfs(int &node, vector<vector<int>>& graph, vector<int>& vis, vector<int>& path) {
-        vis[node] = 1;
-        path[node] = 1;
-        
-        for(int it:graph[node]) {
-            if(!vis[it]) {
-                if(dfs(it,graph,vis,path))
-                    return true;
-            } else if(path[it])
-                return true;
-        }
-        
-        path[node] = 0;
-        return false;
     }
 };
