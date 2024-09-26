@@ -9,9 +9,8 @@ public:
             hash[s[r]-'A']++;
             mxCnt = max(mxCnt,hash[s[r]-'A']);
 
-            while(r-l+1 - mxCnt > k) {
+            if(r-l+1 - mxCnt > k) {
                 hash[s[l]-'A']--;
-                for(int i = 0; i < 26; i++) mxCnt = max(mxCnt,hash[i]);
                 l++;
             }
 
